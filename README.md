@@ -1,4 +1,4 @@
-# DevOps Project: Flask + Nginx + K8s + ArgoCD 🚀
+# Project: Flask + Nginx + K8s + ArgoCD 🚀
 
 ## 📝 Описание проекта
 Данный проект представляет собой полностью автоматизированный процесс развертывания (GitOps) веб-приложения на базе Flask. 
