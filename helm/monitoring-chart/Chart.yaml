@@ -1,0 +1,4 @@
+apiVersion: v2
+name: monitoring-chart
+description: Чарты для мониторинга (Prometheus)
+version: 0.1.0

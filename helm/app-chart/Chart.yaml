@@ -1,0 +1,4 @@
+apiVersion: v2
+name: app-chart
+description: Чарты для нашего Flask+Nginx приложения
+version: 0.1.0

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: db-chart
+description: Чарты для базы данных (Postgres) и кэша (Redis)
+version: 0.1.0

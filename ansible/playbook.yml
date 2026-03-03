@@ -1,0 +1,33 @@
+---
+- name: Установка Minikube (альтернатива K3s)
+  hosts: master
+  tasks:
+    - name: Скачивание Minikube с серверов Google (обход блокировок)
+      become: yes
+      get_url:
+        url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        dest: /usr/local/bin/minikube
+        mode: '0755'
+
+    - name: Скачивание утилиты kubectl
+      become: yes
+      get_url:
+        url: "https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl"
+        dest: /usr/local/bin/kubectl
+        mode: '0755'
+
+    - name: Запуск Minikube (через Docker)
+      # Запускаем без become (от имени твоего пользователя), так как Docker у тебя уже настроен
+      command: minikube start --driver=docker
+      register: minikube_start
+
+    - name: Ожидание готовности узла (ноды)
+      command: kubectl get nodes
+      register: nodes_status
+      until: '" Ready " in nodes_status.stdout'
+      retries: 15
+      delay: 10
+
+    - name: Вывод статуса
+      debug:
+        msg: "Кубер (Minikube) успешно поднят! Победа!"

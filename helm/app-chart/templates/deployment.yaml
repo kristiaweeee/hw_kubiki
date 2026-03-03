@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-app
+        # Тот самый образ, который мы собрали в начале
+        image: kristiaweeee/flask-app:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://user:password@db:5432/testdb"
+        - name: REDIS_HOST
+          value: "redis"
