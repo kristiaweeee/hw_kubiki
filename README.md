@@ -24,3 +24,21 @@
 **1. Поднятие кластера (Ansible)**
 ```bash
 ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
+```
+
+**2. Установка ArgoCD**
+```bash
+kubectl create namespace argocd
+kubectl apply -n argocd -f [https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml](https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml)
+```
+
+**3. Запуск GitOps деплоя**
+Применяем манифест, который укажет ArgoCD вытянуть и развернуть Helm-чарты из этого репозитория:
+```bash
+kubectl apply -f argocd-apps.yaml
+```
+
+После этого ArgoCD автоматически поднимет все необходимые Pods (БД, кэш, приложение и мониторинг). Проверить статус можно командой:
+```bash
+kubectl get pods -w
+```
